@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo de Trabajo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color:red;text-align: center;">Escuela Politecnica Nacional</h1>
+    <h1 style="color:rgb(0, 140, 255);text-align: center;">Escuela Formación de Tecnólogos</h1>
+    <h1 style="color:rgb(0, 0, 0);text-align: center;">Desarrollo de Software</h1>
+    <br><br>
+    <h1 style="color:rgb(0, 0, 0);text-align: center;">Grupo 1</h1>
+    <h1 style="color:rgb(0, 0, 0);text-align: center;">Taller 6</h1>
+    <h2 style="color:rgb(0, 0, 0);text-align: center;">Ing Byron Loarte</h2>
+
+    <button onclick="window.location.href='/integrantes'" style="margin-left: 420px;margin-top: 100px;color: blue;background-color: aqua;font-size: 35px;">Ver Integrantes</button>
+    <button onclick="window.location.href='/products'" style="color: blue;background-color: aqua;font-size: 35px;">Ver Productos</button>
+
+    <script>
+        // Función para cargar los integrantes
+        async function cargarIntegrantes() {
+            const response = await fetch('/integrantes');
+            const integrantes = await response.json();
+            const lista = document.getElementById('integrantes-list');
+
+            integrantes.forEach(integrante => {
+                const li = document.createElement('li');
+                li.textContent = `${integrante.nombre} - ${integrante.rol}`;
+                lista.appendChild(li);
+            });
+        }
+
+        // Función para cargar los productos
+        async function cargarProductos() {
+            const response = await fetch('/products');
+            const html = await response.text();
+            const lista = document.getElementById('productos-list');
+            lista.innerHTML = html; // Asumiendo que el servidor devuelve una lista HTML
+        }
+
+        // Cargar datos al iniciar la página
+        window.onload = () => {
+            cargarIntegrantes();
+            cargarProductos();
+        };
+    </script>
+</body>
+</html>
